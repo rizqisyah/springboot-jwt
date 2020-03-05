@@ -1,14 +1,14 @@
 # Spring Boot + JWT And Postgressql
 
-Saya Disini Membuat Spring Boot Dan Jwt
+Create Jwt with spring boot and postgressql
 
 ## Getting Started
 
-Saya Menggunakan Java 8 Dan Postgre9
+I Use Java 8 And PostgresSql 9
 
 ### Create User
 
-Untuk Pendaftaran User
+For Create User
 
 ```
 CREATE User Sign UP
@@ -26,7 +26,7 @@ JSON
 ```
 ### Get Token User
 
-Untuk Mengambil Token Dari User
+Get Token From User
 
 ```
 Get Token From User
