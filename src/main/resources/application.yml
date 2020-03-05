@@ -1,16 +1,16 @@
-spring:
-  datasource:
-    hikari:
-      connectionTimeout: 20000
-      maximumPoolSize: 5
-    password: admin
-    url: jdbc:postgresql://localhost:5432/user_db
-    username: postgres
-  jpa:
-    hibernate:
-      ddl-auto: update
+spring.datasource:
+  url: "jdbc:h2:mem:testdb"
+  driverClassName: org.h2.Driver
+  username: sa
+  password: ""
+  data: "classpath*:data.sql"
+spring.jpa:
+  database-platform: org.hibernate.dialect.H2Dialect
+spring.profiles: default 
 
-demo:
-  security.jwt:
-    tokenExpirationTime: 86400
-    tokenSigningKey: jwtGrokonezSecretKey
+demo.security.jwt:
+    tokenExpirationTime: 15
+    refreshTokenExpTime: 60
+    tokenIssuer: http://svlada.com
+    tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus
+spring.h2.console.enabled: true

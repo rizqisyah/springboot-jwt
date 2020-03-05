@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,57 +10,30 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.security.core.GrantedAuthority;
 
 import lombok.Data;
 
+
 @Entity
-@Table(name = "users",uniqueConstraints = {
-		@UniqueConstraint(columnNames = {
-				"username"
-		}),
-		@UniqueConstraint(columnNames = {
-				"email"
-		})
-})
+@Table(name="APP_USER")
 @Data
-public class User {
+public class User{
 
-	  @Id
-	  @GeneratedValue(strategy = GenerationType.IDENTITY)
-	  private Long id;
-
-	  @NotBlank
-	  @Size(min=3,max = 50)
-	  private String name;
-
-	  @NotBlank
-	  @Size(min=3,max = 50)
-	  private String username;
-	  
-	  @NaturalId
-	    @NotBlank
-	    @Size(max = 50)
-	    @Email
-	    private String email;
-	 
-	  @NotBlank
-	  @Size(min = 8,max = 100)
-	  private String password;
-
-	  @ManyToMany(fetch = FetchType.LAZY)
-	  @JoinTable(name = "user_roles",
-	  		joinColumns = @JoinColumn(name="user_id"),
-			inverseJoinColumns = @JoinColumn(name = "role_id"))
-	  private Set<Role> roles = new HashSet<>();
-
-	  public User() {}
-	  
-	  public User(String name, String username, String email, String password) {
-	        this.name = name;
-	        this.username = username;
-	        this.email = email;
-	        this.password = password;
-	    }
-	 
+	@Id @Column(name="ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(name="username")
+    private String username;
+    
+    @Column(name="password")
+    private String password;
+    
+    @OneToMany
+    @JoinColumn(name="APP_USER_ID", referencedColumnName="ID")
+    private List<UserRole> roles;
+    
 }
