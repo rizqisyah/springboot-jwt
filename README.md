@@ -6,35 +6,17 @@ Create Jwt with spring boot and postgressql
 
 I Use Java 8 And PostgresSql 9
 
-### Create User
-
-For Create User
-
-```
-CREATE User Sign UP
-URL = http://localhost:8080/api/auth/signup
-JSON 
-{
-	"name" : "Riz",
-	"username": "rizqisyah2",
-	"email" : "rizqisyah5@gmail.com",
-	 "role": [
-	 	"pm"
-	 	],
-	 "password" : "admin123"
-}
-```
 ### Get Token User
 
 Get Token From User
 
 ```
 Get Token From User
-URL = http://localhost:8080/api/auth/signin
+URL = http://localhost:8080/api/auth/login
 JSON 
 {
-	"username" : "rizqisyah2",
-	"password" : "admin123"
+	"username" : "svlada@gmail.com",
+	"password" : "test1234"
 }
 ```
 
