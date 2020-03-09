@@ -38,7 +38,7 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider{
 
         String username = (String) authentication.getPrincipal();
         String password = (String) authentication.getCredentials();
-
+        System.out.println(password);
         User user = userService.getByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
         
         if (!encoder.matches(password, user.getPassword())) {
@@ -48,7 +48,7 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider{
         if (user.getRoles() == null) throw new InsufficientAuthenticationException("User has no roles assigned");
         
         List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getRole().authority()))
+                .map(authority -> new SimpleGrantedAuthority(authority.getAuthority()))
                 .collect(Collectors.toList());
         
         UserContext userContext = UserContext.create(user.getUsername(), authorities);
