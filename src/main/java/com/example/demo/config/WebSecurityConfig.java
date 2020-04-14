@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -28,6 +29,7 @@ import com.example.demo.security.filter.JwtTokenAuthenticationProcessingFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	   public static final String AUTHENTICATION_HEADER_NAME = "Authorization";
 	    public static final String AUTHENTICATION_URL = "/api/auth/login";
@@ -79,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	            REFRESH_TOKEN_URL,
 	            "/console"
 	        );
-
+	        List<String> authenticatedEndpointList = Arrays.asList(API_ROOT_URL);
 	        http
 	            .csrf().disable() // We don't need CSRF for JWT based authentication
 	            .exceptionHandling()
@@ -95,7 +97,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	                .permitAll()
 	            .and()
 	                .authorizeRequests()
-	                .antMatchers(API_ROOT_URL).authenticated() // Protected API End-points
+	                .antMatchers(API_ROOT_URL)
+	                .authenticated()
 	            .and()
 	                .addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
 	                .addFilterBefore(buildAjaxLoginProcessingFilter(AUTHENTICATION_URL), UsernamePasswordAuthenticationFilter.class)
